@@ -5,14 +5,26 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/luckiest_guy"
         android:padding="8dp"
+        android:text="Pokedex"
         android:textSize="38sp"
-        android:fontFamily="@font/LuckiestGuy"
-        android:text="Pokedex"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/pokemonList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

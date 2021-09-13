@@ -1,27 +1,27 @@
 package com.fabulouszanna.fabpokedex.data.pokemon
 
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 @Entity(tableName = "pokemon")
 data class Pokemon(
     @PrimaryKey
     val id: Int,
-    val pokemon_id: String,
+    @ColumnInfo(name = "pokemon_id")
+    val pokemonId: String,
     val name: String,
-    val abilities: List<String>,
-    @Embedded
-    val base_stats: BaseStats,
-    @Embedded
-    val evolutions: List<Evolution>,
-    val height: String,
-    val hidden_ability: String?,
-    val img_url: String,
-    val pokedex_entry: String,
-    val species: String,
     val types: List<String>,
+    val species: String,
+    val height: String,
     val weight: String,
-    @Embedded
-    val moves: List<Move>?,
+    @ColumnInfo(name = "img_url")
+    val imgUrl: String,
+    @ColumnInfo(name = "hidden_ability")
+    val hiddenAbility: String?,
+    val abilities: List<String>,
+    val base_stats: BaseStats,
+    @ColumnInfo(name = "pokedex_entry")
+    val pokedexEntry: String,
+    val evolutions: List<Evolution>,
+    val moves: String?
+//    val moves: List<Move>?
 )
