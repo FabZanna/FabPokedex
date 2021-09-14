@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp"
     app:cardCornerRadius="16dp"
+    tools:backgroundTint="@color/bug"
     app:cardElevation="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,20 +17,21 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginTop="8dp"
-            tools:src="@color/cardview_shadow_start_color"
             android:contentDescription="pokemon picture"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@color/cardview_shadow_start_color" />
 
         <TextView
-            android:textStyle="bold"
             android:id="@+id/pokemonName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:padding="8dp"
+            android:textColor="@color/white"
             android:textSize="28sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pokemonPic"

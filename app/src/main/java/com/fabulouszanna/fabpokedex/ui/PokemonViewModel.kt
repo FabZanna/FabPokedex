@@ -12,4 +12,6 @@ import javax.inject.Inject
 class PokemonViewModel @Inject constructor(private val repository: PokemonRepository) :
     ViewModel() {
     val pokemonList: LiveData<List<SchematicPokemon>> = repository.getAllPokemon().asLiveData()
+
+    fun getPokemonById(id: Int) = repository.getPokemonById(id).asLiveData()
 }

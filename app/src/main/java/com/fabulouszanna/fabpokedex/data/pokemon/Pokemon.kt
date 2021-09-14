@@ -18,7 +18,8 @@ data class Pokemon(
     @ColumnInfo(name = "hidden_ability")
     val hiddenAbility: String?,
     val abilities: List<String>,
-    val base_stats: BaseStats,
+    @ColumnInfo(name = "base_stats")
+    val baseStats: BaseStats,
     @ColumnInfo(name = "pokedex_entry")
     val pokedexEntry: String,
     val evolutions: List<Evolution>,

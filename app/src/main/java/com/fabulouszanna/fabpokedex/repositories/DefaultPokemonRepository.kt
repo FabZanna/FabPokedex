@@ -1,6 +1,7 @@
 package com.fabulouszanna.fabpokedex.repositories
 
 import com.fabulouszanna.fabpokedex.data.PokemonDao
+import com.fabulouszanna.fabpokedex.data.pokemon.Pokemon
 import com.fabulouszanna.fabpokedex.data.pokemon.SchematicPokemon
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -19,4 +20,5 @@ class DefaultPokemonRepository @Inject constructor(private val dao: PokemonDao) 
         }
     }
 
+    override fun getPokemonById(id: Int): Flow<Pokemon> = dao.getPokemonById(id)
 }

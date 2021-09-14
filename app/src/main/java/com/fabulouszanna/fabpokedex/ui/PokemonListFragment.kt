@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.fabulouszanna.fabpokedex.adapters.PokemonListAdapter
 import com.fabulouszanna.fabpokedex.databinding.FragmentPokemonListBinding
@@ -43,6 +44,13 @@ class PokemonListFragment @Inject constructor(private val pokemonListAdapter: Po
             layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = pokemonListAdapter
             addItemDecoration(RecyclerViewGridLayoutSpace())
+        }
+        pokemonListAdapter.setOnCardClicked {
+            findNavController().navigate(
+                PokemonListFragmentDirections.actionPokemonListFragmentToPokemonDetailsFragment(
+                    it
+                )
+            )
         }
     }
 }

@@ -9,4 +9,7 @@ import kotlinx.coroutines.flow.Flow
 interface PokemonDao {
     @Query("SELECT * FROM pokemon")
     fun getAllPokemon(): Flow<List<Pokemon>>
+
+    @Query("SELECT * FROM pokemon WHERE id=:id")
+    fun getPokemonById(id: Int): Flow<Pokemon>
 }

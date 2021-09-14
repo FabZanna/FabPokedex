@@ -9,11 +9,17 @@ import com.bumptech.glide.RequestManager
 import com.fabulouszanna.fabpokedex.data.pokemon.SchematicPokemon
 import com.fabulouszanna.fabpokedex.databinding.PokemonCardBinding
 import com.fabulouszanna.fabpokedex.other.extractColorResourceFromType
-import com.fabulouszanna.fabpokedex.other.retrievePokemonImage
+import com.fabulouszanna.fabpokedex.other.retrieveDrawableFromName
 import javax.inject.Inject
 
 class PokemonListAdapter @Inject constructor(private val glide: RequestManager) :
     RecyclerView.Adapter<PokemonListAdapter.PokemonViewHolder>() {
+
+    private var onCardClicked: (id: Int) -> Unit = {}
+
+    fun setOnCardClicked(onCardClicked: (id: Int) -> Unit) {
+        this.onCardClicked = onCardClicked
+    }
 
     private val diffCallback = object : DiffUtil.ItemCallback<SchematicPokemon>() {
         override fun areItemsTheSame(
@@ -58,10 +64,13 @@ class PokemonListAdapter @Inject constructor(private val glide: RequestManager) 
             val typeColor = extractColorResourceFromType(context, pokemon.type)
             binding.apply {
                 pokemonName.text = pokemon.name
-                val pokemonImg = retrievePokemonImage(context, pokemon.imgUrl)
+                val pokemonImg = retrieveDrawableFromName(context, pokemon.imgUrl)
                 glide.load(pokemonImg).into(pokemonPic)
 
                 root.setCardBackgroundColor(typeColor)
+                root.setOnClickListener {
+                    onCardClicked(pokemon.id)
+                }
             }
         }
     }
