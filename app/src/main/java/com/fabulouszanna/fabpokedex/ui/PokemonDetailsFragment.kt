@@ -5,16 +5,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.view.animation.Animation
+import android.view.animation.LinearInterpolator
+import android.view.animation.RotateAnimation
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.fragment.app.*
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.commitNow
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.RequestManager
 import com.fabulouszanna.fabpokedex.R
 import com.fabulouszanna.fabpokedex.databinding.FragmentPokemonDetailsBinding
 import com.fabulouszanna.fabpokedex.other.extractColorResourceFromType
 import com.fabulouszanna.fabpokedex.other.retrieveDrawableFromName
+import com.fabulouszanna.fabpokedex.ui.viewmodels.PokemonViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -31,21 +38,34 @@ class PokemonDetailsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = FragmentPokemonDetailsBinding.inflate(inflater, container, false).also { binding = it }.root
+    ): View =
+        FragmentPokemonDetailsBinding.inflate(inflater, container, false).also { binding = it }.root
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         populateView()
+        spinPokeBall()
         attachAboutFragment()
+    }
+
+    private fun changeStatusBarColor(color: Int) {
+        requireActivity().window.apply {
+            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            statusBarColor = color
+        }
     }
 
     private fun populateView() {
         viewModel.getPokemonById(args.id).observe(viewLifecycleOwner) { pokemon ->
-            binding.apply {
+            val color = extractColorResourceFromType(requireContext(), pokemon.types[0])
+            changeStatusBarColor(color)
 
+            binding.apply {
+                root.setBackgroundColor(color)
                 pokemonName.text = pokemon.name
                 pokemonId.text = pokemon.pokemonId
+
                 val img = retrieveDrawableFromName(requireContext(), pokemon.imgUrl)
                 glide.load(img).into(pokemonImg)
 
@@ -60,12 +80,6 @@ class PokemonDetailsFragment : Fragment() {
                     }
                     secondType.visibility = View.VISIBLE
                 }
-                root.setBackgroundColor(
-                    extractColorResourceFromType(
-                        requireContext(),
-                        pokemon.types[0]
-                    )
-                )
 
 
             }
@@ -85,6 +99,20 @@ class PokemonDetailsFragment : Fragment() {
         childFragmentManager.commitNow {
             replace(R.id.contentContainer, PokemonDetailsAboutFragment(args.id))
         }
+    }
 
+    private fun spinPokeBall() {
+        val rotate = RotateAnimation(
+            0f,
+            360f,
+            Animation.RELATIVE_TO_SELF,
+            0.5f,
+            Animation.RELATIVE_TO_SELF,
+            0.5f
+        )
+        rotate.duration = 5000
+        rotate.repeatCount = Animation.INFINITE
+        rotate.interpolator = LinearInterpolator()
+        binding.pokeball.animation = rotate
     }
 }

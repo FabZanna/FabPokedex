@@ -36,15 +36,6 @@ class Converters {
     @TypeConverter
     fun fromListEvolution(value: List<Evolution>): String = Gson().toJson(value)
 
-    @TypeConverter
-    fun toEvolution(value: String): Evolution {
-        val objectType: Type = object : TypeToken<Evolution>() {}.type
-        return Gson().fromJson(value, objectType)
-    }
-
-    @TypeConverter
-    fun fromEvolution(value: Evolution): String = Gson().toJson(value)
-
 //    @TypeConverter
 //    fun toListMove(value: String): List<Move> {
 //        val objectType: Type = object : TypeToken<List<Move>>() {}.type

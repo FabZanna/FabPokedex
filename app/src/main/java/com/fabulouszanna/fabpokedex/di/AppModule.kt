@@ -5,9 +5,12 @@ import androidx.room.Room
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.fabulouszanna.fabpokedex.R
+import com.fabulouszanna.fabpokedex.data.AbilityDao
 import com.fabulouszanna.fabpokedex.data.PokemonDao
 import com.fabulouszanna.fabpokedex.data.PokemonDatabase
 import com.fabulouszanna.fabpokedex.other.Constants.POKEMON_DATABASE
+import com.fabulouszanna.fabpokedex.repositories.AbilityRepository
+import com.fabulouszanna.fabpokedex.repositories.DefaultAbilityRepository
 import com.fabulouszanna.fabpokedex.repositories.DefaultPokemonRepository
 import com.fabulouszanna.fabpokedex.repositories.PokemonRepository
 import dagger.Module
@@ -50,4 +53,16 @@ object AppModule {
     @Provides
     fun providePokemonRepository(dao: PokemonDao) =
         DefaultPokemonRepository(dao) as PokemonRepository
+
+
+    @Singleton
+    @Provides
+    fun provideAbilityDao(
+        database: PokemonDatabase
+    ) = database.abilityDao()
+
+    @Singleton
+    @Provides
+    fun provideAbilityRepository(dao: AbilityDao) =
+        DefaultAbilityRepository(dao) as AbilityRepository
 }

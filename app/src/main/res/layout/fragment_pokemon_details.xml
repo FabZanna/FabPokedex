@@ -99,8 +99,18 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/pokeball"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/pokeball"
+        app:layout_constraintBottom_toBottomOf="@id/pokemonImg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/pokemonImg"
+        app:tint="@color/whiteTransparent" />
+
     <FrameLayout
-        android:backgroundTint="@color/dark_theme_background"
         android:id="@+id/contentContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -115,6 +125,7 @@
         app:layout_constraintVertical_bias="0.0">
 
     </FrameLayout>
+
 
     <ImageView
         android:id="@+id/pokemonImg"
