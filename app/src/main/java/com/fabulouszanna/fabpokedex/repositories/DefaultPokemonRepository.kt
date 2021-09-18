@@ -9,7 +9,29 @@ import javax.inject.Inject
 
 class DefaultPokemonRepository @Inject constructor(private val dao: PokemonDao) :
     PokemonRepository {
-    override fun getAllPokemon(): Flow<List<SchematicPokemon>> = dao.getAllPokemon().map { list ->
+    override fun getPokemonList(name: String): Flow<List<SchematicPokemon>> = filter(name)
+
+    private fun filter(name: String): Flow<List<SchematicPokemon>> {
+        return if (name == "") {
+            getAllPokemon()
+        } else {
+            filterPokemonByName(name)
+        }
+    }
+
+    private fun filterPokemonByName(name: String): Flow<List<SchematicPokemon>> =
+        dao.filterPokemonByName(name).map { list ->
+            list.map { pokemon ->
+                SchematicPokemon(
+                    id = pokemon.id,
+                    name = pokemon.name,
+                    imgUrl = pokemon.imgUrl,
+                    type = pokemon.types[0]
+                )
+            }
+        }
+
+    private fun getAllPokemon(): Flow<List<SchematicPokemon>> = dao.getAllPokemon().map { list ->
         list.map { pokemon ->
             SchematicPokemon(
                 id = pokemon.id,

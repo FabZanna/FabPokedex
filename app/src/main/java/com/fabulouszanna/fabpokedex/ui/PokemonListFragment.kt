@@ -5,12 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import androidx.core.content.ContextCompat
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.fabulouszanna.fabpokedex.R
 import com.fabulouszanna.fabpokedex.adapters.PokemonListAdapter
 import com.fabulouszanna.fabpokedex.databinding.FragmentPokemonListBinding
 import com.fabulouszanna.fabpokedex.other.RecyclerViewGridLayoutSpace
@@ -37,6 +36,7 @@ class PokemonListFragment @Inject constructor(private val pokemonListAdapter: Po
         changeStatusBarColor()
         subscribeToObservers()
         setupRecyclerView()
+        setupSearchView()
     }
 
     private fun changeStatusBarColor() {
@@ -68,6 +68,39 @@ class PokemonListFragment @Inject constructor(private val pokemonListAdapter: Po
                     it
                 )
             )
+        }
+    }
+
+    private fun setupSearchView() {
+        val pendingQuery = viewModel.filteredName.value
+        binding.searchView.apply {
+            maxWidth = Int.MAX_VALUE
+
+            if (pendingQuery != null && pendingQuery.isNotEmpty()) {
+                binding.textView.visibility = View.INVISIBLE
+                setQuery(pendingQuery, false)
+            }
+
+            setOnSearchClickListener {
+                binding.textView.visibility = View.INVISIBLE
+            }
+            setOnCloseListener {
+                binding.textView.visibility = View.VISIBLE
+                viewModel.filteredName.postValue("")
+                false
+            }
+
+            setOnQueryTextListener(object :
+                androidx.appcompat.widget.SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    viewModel.filteredName.postValue(newText ?: "")
+                    return true
+                }
+            })
         }
     }
 }
