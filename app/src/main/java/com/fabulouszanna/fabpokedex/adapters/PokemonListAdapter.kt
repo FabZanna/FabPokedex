@@ -41,10 +41,7 @@ class PokemonListAdapter @Inject constructor(private val glide: RequestManager) 
 
     var pokemonListItems: List<SchematicPokemon>
         get() = differ.currentList
-        set(value) {
-            differ.submitList(null)
-            differ.submitList(value)
-        }
+        set(value) = differ.submitList(value)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder =
         PokemonViewHolder(

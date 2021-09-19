@@ -1,7 +1,9 @@
 package com.fabulouszanna.fabpokedex.ui
 
+import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,7 @@ import android.view.animation.LinearInterpolator
 import android.view.animation.RotateAnimation
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commitNow
@@ -18,10 +21,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.RequestManager
 import com.fabulouszanna.fabpokedex.R
+import com.fabulouszanna.fabpokedex.adapters.PokemonDetailsViewPagerAdapter
 import com.fabulouszanna.fabpokedex.databinding.FragmentPokemonDetailsBinding
 import com.fabulouszanna.fabpokedex.other.extractColorResourceFromType
 import com.fabulouszanna.fabpokedex.other.retrieveDrawableFromName
 import com.fabulouszanna.fabpokedex.ui.viewmodels.PokemonViewModel
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -45,8 +51,8 @@ class PokemonDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         populateView()
+        setupViewPager()
         spinPokeBall()
-        attachAboutFragment()
     }
 
     private fun changeStatusBarColor(color: Int) {
@@ -60,6 +66,7 @@ class PokemonDetailsFragment : Fragment() {
         viewModel.getPokemonById(args.id).observe(viewLifecycleOwner) { pokemon ->
             val color = extractColorResourceFromType(requireContext(), pokemon.types[0])
             changeStatusBarColor(color)
+            setTabsColor(color)
 
             binding.apply {
                 root.setBackgroundColor(color)
@@ -95,9 +102,23 @@ class PokemonDetailsFragment : Fragment() {
         textView.text = type
     }
 
-    private fun attachAboutFragment() {
-        childFragmentManager.commitNow {
-            replace(R.id.contentContainer, PokemonDetailsAboutFragment(args.id))
+    private fun setupViewPager() {
+        val viewPagerAdapter = PokemonDetailsViewPagerAdapter(this, args.id)
+        binding.viewPager.adapter = viewPagerAdapter
+
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            tab.text = when (position) {
+                0 -> "About"
+                1 -> "Evolutions"
+                else -> "Fragment"
+            }
+        }.attach()
+    }
+
+    private fun setTabsColor(color: Int) {
+        binding.tabLayout.apply {
+            setSelectedTabIndicatorColor(color)
+            setTabTextColors(tabTextColors?.defaultColor ?: Color.RED, color)
         }
     }
 
