@@ -13,7 +13,7 @@
         android:background="@drawable/pokemon_details_info_background"
         android:gravity="center"
         android:textColor="@color/white"
-        android:textSize="36sp"
+        android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,7 +23,9 @@
         android:id="@+id/game_description_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
         app:cardUseCompatPadding="true"
@@ -62,7 +64,9 @@
         android:id="@+id/in_depth_effect_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
         app:cardUseCompatPadding="true"
@@ -96,55 +100,5 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/game_desc_title"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_margin="16dp"-->
-    <!--        android:text="Game Description"-->
-    <!--        android:textSize="22sp"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/abilityName" />-->
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/gameDescription"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginStart="16dp"-->
-    <!--        android:layout_marginTop="8dp"-->
-    <!--        android:layout_marginEnd="16dp"-->
-    <!--        android:lineSpacingMultiplier="1.5"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/game_desc_title"-->
-    <!--        tools:lines="2"-->
-    <!--        tools:text="@tools:sample/lorem/random" />-->
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/in_depth_title"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_margin="16dp"-->
-    <!--        android:text="In Depth Effect"-->
-    <!--        android:textSize="22sp"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/gameDescription" />-->
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/inDepthEffect"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginStart="16dp"-->
-    <!--        android:layout_marginTop="8dp"-->
-    <!--        android:layout_marginEnd="16dp"-->
-    <!--        android:lineSpacingMultiplier="1.5"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/in_depth_title"-->
-    <!--        tools:lines="2"-->
-    <!--        tools:text="@tools:sample/lorem/random" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

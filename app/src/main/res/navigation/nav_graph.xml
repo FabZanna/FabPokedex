@@ -6,19 +6,26 @@
 
     <fragment
         android:id="@+id/pokemonListFragment"
-        android:name="com.fabulouszanna.fabpokedex.ui.PokemonListFragment"
+        android:name="com.fabulouszanna.fabpokedex.features.pokemon.presentation.pokemon_list.PokemonListFragment"
 
         android:label="PokemonListFragment" >
         <action
             android:id="@+id/action_pokemonListFragment_to_pokemonDetailsFragment"
-            app:destination="@id/pokemonDetailsFragment" />
+            app:destination="@id/pokemonDetailsFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/pokemonDetailsFragment"
-        android:name="com.fabulouszanna.fabpokedex.ui.PokemonDetailsFragment"
+        android:name="com.fabulouszanna.fabpokedex.features.pokemon.presentation.pokemon_details.PokemonDetailsFragment"
         android:label="PokemonDetailsFragment" >
         <argument
             android:name="id"
-            app:argType="integer" />
+            app:argType="string" />
+        <action
+            android:id="@+id/action_pokemonDetailsFragment_self"
+            app:destination="@id/pokemonDetailsFragment" />
     </fragment>
 </navigation>

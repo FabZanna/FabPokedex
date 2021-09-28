@@ -5,14 +5,15 @@ import androidx.room.Room
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.fabulouszanna.fabpokedex.R
-import com.fabulouszanna.fabpokedex.data.AbilityDao
-import com.fabulouszanna.fabpokedex.data.PokemonDao
-import com.fabulouszanna.fabpokedex.data.PokemonDatabase
-import com.fabulouszanna.fabpokedex.other.Constants.POKEMON_DATABASE
-import com.fabulouszanna.fabpokedex.repositories.AbilityRepository
-import com.fabulouszanna.fabpokedex.repositories.DefaultAbilityRepository
-import com.fabulouszanna.fabpokedex.repositories.DefaultPokemonRepository
-import com.fabulouszanna.fabpokedex.repositories.PokemonRepository
+import com.fabulouszanna.fabpokedex.features.pokemon.data.db.AbilityDao
+import com.fabulouszanna.fabpokedex.features.pokemon.data.db.PokemonDatabase
+import com.fabulouszanna.fabpokedex.features.pokemon.data.repository.PokemonRepositoryImpl
+import com.fabulouszanna.fabpokedex.features.pokemon.domain.repository.PokemonRepository
+import com.fabulouszanna.fabpokedex.features.pokemon.domain.usecases.GetPokemonListUseCase
+import com.fabulouszanna.fabpokedex.features.pokemon.domain.usecases.PokemonUseCases
+import com.fabulouszanna.fabpokedex.features.pokemon.domain.repository.AbilityRepository
+import com.fabulouszanna.fabpokedex.features.pokemon.data.repository.AbilityRepositoryImpl
+import com.fabulouszanna.fabpokedex.features.pokemon.domain.usecases.GetPokemonUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,31 +39,28 @@ object AppModule {
     @Provides
     fun provideDatabase(
         @ApplicationContext context: Context
-    ) = Room.databaseBuilder(context, PokemonDatabase::class.java, POKEMON_DATABASE)
-        .createFromAsset("database/$POKEMON_DATABASE")
+    ) = Room.databaseBuilder(context, PokemonDatabase::class.java, PokemonDatabase.DATABASE_NAME)
+        .createFromAsset("database/${PokemonDatabase.DATABASE_NAME}")
         .fallbackToDestructiveMigration()
         .build()
 
     @Singleton
     @Provides
-    fun providePokemonDao(
-        database: PokemonDatabase
-    ) = database.pokemonDao()
-
-    @Singleton
-    @Provides
-    fun providePokemonRepository(dao: PokemonDao) =
-        DefaultPokemonRepository(dao) as PokemonRepository
+    fun providePokemonRepository(db: PokemonDatabase): PokemonRepository =
+        PokemonRepositoryImpl(db.pokemonDao)
 
 
     @Singleton
     @Provides
-    fun provideAbilityDao(
-        database: PokemonDatabase
-    ) = database.abilityDao()
+    fun provideAbilityRepository(db: PokemonDatabase): AbilityRepository =
+        AbilityRepositoryImpl(db.abilityDao)
 
     @Singleton
     @Provides
-    fun provideAbilityRepository(dao: AbilityDao) =
-        DefaultAbilityRepository(dao) as AbilityRepository
+    fun providePokemonUseCases(repository: PokemonRepository): PokemonUseCases {
+        return PokemonUseCases(
+            getPokemonListUseCase = GetPokemonListUseCase(repository),
+            getPokemonUseCase = GetPokemonUseCase(repository)
+        )
+    }
 }

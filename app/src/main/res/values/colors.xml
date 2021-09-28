@@ -7,6 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="dark_theme_background">#181818</color>
+    <color name="bottom_sheet_card_element_light">#FFDDDDDD</color>
 
     <color name="whiteTransparent">#4DFFFFFF</color>
 
@@ -14,7 +16,7 @@
     <color name="bug">#83901a</color>
     <color name="dark">#707070</color>
     <color name="dragon">#4e38e9</color>
-    <color name="electric">#eed535</color>
+    <color name="electric">#CDB622</color>
     <color name="fairy">#e76de7</color>
     <color name="fighting">#a84d3d</color>
     <color name="fire">#ed7351</color>
