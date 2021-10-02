@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.fabulouszanna.fabpokedex.core.util.retrieveColorResourceFromType
 import com.fabulouszanna.fabpokedex.core.util.retrieveDrawableFromName
-import com.fabulouszanna.fabpokedex.databinding.PokemonCardBinding
+import com.fabulouszanna.fabpokedex.databinding.ItemPokemonBinding
 import com.fabulouszanna.fabpokedex.features.pokemon.domain.model.PokemonCard
 
 class PokemonListAdapter(private val glide: RequestManager) :
@@ -44,7 +44,7 @@ class PokemonListAdapter(private val glide: RequestManager) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder =
         PokemonViewHolder(
-            PokemonCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemPokemonBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
 
     override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {
@@ -54,7 +54,7 @@ class PokemonListAdapter(private val glide: RequestManager) :
 
     override fun getItemCount(): Int = pokemonListItems.size
 
-    inner class PokemonViewHolder(private val binding: PokemonCardBinding) :
+    inner class PokemonViewHolder(private val binding: ItemPokemonBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         private val context = binding.root.context

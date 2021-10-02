@@ -45,27 +45,27 @@
 
             <include
                 android:id="@+id/hp"
-                layout="@layout/single_base_stat" />
+                layout="@layout/item_base_stat" />
 
             <include
                 android:id="@+id/attack"
-                layout="@layout/single_base_stat" />
+                layout="@layout/item_base_stat" />
 
             <include
                 android:id="@+id/defense"
-                layout="@layout/single_base_stat" />
+                layout="@layout/item_base_stat" />
 
             <include
                 android:id="@+id/spAttack"
-                layout="@layout/single_base_stat" />
+                layout="@layout/item_base_stat" />
 
             <include
                 android:id="@+id/spDefense"
-                layout="@layout/single_base_stat" />
+                layout="@layout/item_base_stat" />
 
             <include
                 android:id="@+id/speed"
-                layout="@layout/single_base_stat" />
+                layout="@layout/item_base_stat" />
 
         </LinearLayout>
 
@@ -144,7 +144,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/weakness_title"
             app:spanCount="2"
-            tools:listitem="@layout/type_weakness_resistance_immunity_item" />
+            tools:listitem="@layout/item_type_weakness_resistance_immunity" />
 
         <TextView
             android:id="@+id/resistance_title"
@@ -170,7 +170,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/resistance_title"
             app:spanCount="2"
-            tools:listitem="@layout/type_weakness_resistance_immunity_item" />
+            tools:listitem="@layout/item_type_weakness_resistance_immunity" />
 
         <TextView
             android:id="@+id/immunity_title"
@@ -196,7 +196,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/immunity_title"
             app:spanCount="2"
-            tools:listitem="@layout/type_weakness_resistance_immunity_item" />
+            tools:listitem="@layout/item_type_weakness_resistance_immunity" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

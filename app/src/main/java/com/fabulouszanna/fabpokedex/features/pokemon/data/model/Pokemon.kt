@@ -23,8 +23,7 @@ data class Pokemon(
     @ColumnInfo(name = "pokedex_entry")
     val pokedexEntry: String,
     val evolutions: List<Evolution>,
-    val moves: String?
-//    val moves: List<Move>? = null
+    val moves: List<Move>? = null
 ) {
     fun toPokemonCard(): PokemonCard {
         return PokemonCard(

@@ -2,7 +2,7 @@ package com.fabulouszanna.fabpokedex.features.pokemon.presentation.pokemon_detai
 
 import androidx.lifecycle.*
 import com.fabulouszanna.fabpokedex.features.pokemon.data.model.Pokemon
-import com.fabulouszanna.fabpokedex.features.pokemon.domain.usecases.PokemonUseCases
+import com.fabulouszanna.fabpokedex.features.pokemon.domain.use_cases.PokemonUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

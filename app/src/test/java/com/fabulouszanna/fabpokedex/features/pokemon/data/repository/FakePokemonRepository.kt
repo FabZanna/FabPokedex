@@ -8,44 +8,57 @@ import kotlinx.coroutines.flow.flow
 
 class FakePokemonRepository : PokemonRepository {
     private val pokemon1 = Pokemon(
-        id = 0,
-        pokemonId = "#001",
+        pokemonId = "1",
         name = "Bulbasaur",
         types = listOf("Grass", "Poison"),
-        species = "Seed Pokemon",
-        height = "xx",
-        weight = "xx",
-        imgUrl = "xx",
+        species = "",
+        height = "",
+        weight = "",
+        imgUrl = "",
         hiddenAbility = "",
-        abilities = listOf("1", "2"),
-        baseStats = BaseStats(1, 1, 1, 1, 1, 1, 1),
-        pokedexEntry = "xx",
+        abilities = emptyList(),
+        baseStats = BaseStats(1,1,1,1,1,1,1),
+        pokedexEntry = "",
         evolutions = emptyList(),
         moves = null
     )
-
     private val pokemon2 = Pokemon(
-        id = 1,
-        pokemonId = "#002",
+        pokemonId = "2",
         name = "Ivysaur",
         types = listOf("Grass", "Poison"),
-        species = "Seed Pokemon",
-        height = "xx",
-        weight = "xx",
-        imgUrl = "xx",
+        species = "",
+        height = "",
+        weight = "",
+        imgUrl = "",
         hiddenAbility = "",
-        abilities = listOf("1", "2"),
-        baseStats = BaseStats(1, 1, 1, 1, 1, 1, 1),
-        pokedexEntry = "xx",
+        abilities = emptyList(),
+        baseStats = BaseStats(1,1,1,1,1,1,1),
+        pokedexEntry = "",
         evolutions = emptyList(),
         moves = null
     )
+    private val pokemon3 = Pokemon(
+        pokemonId = "3",
+        name = "Charmander",
+        types = listOf("Fire"),
+        species = "",
+        height = "",
+        weight = "",
+        imgUrl = "",
+        hiddenAbility = "",
+        abilities = emptyList(),
+        baseStats = BaseStats(1,1,1,1,1,1,1),
+        pokedexEntry = "",
+        evolutions = emptyList(),
+        moves = null
+    )
+    private val pokemonList = listOf(pokemon1, pokemon2, pokemon3)
 
     override fun getAllPokemon(): Flow<List<Pokemon>> = flow {
-        emit(listOf(pokemon1, pokemon2))
+        emit(pokemonList)
     }
 
-    override fun getPokemonByName(name: String): Flow<Pokemon> {
+    override fun getPokemonById(id: String): Flow<Pokemon> {
         TODO("Not yet implemented")
     }
 }

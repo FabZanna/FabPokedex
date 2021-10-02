@@ -10,7 +10,7 @@ import com.bumptech.glide.RequestManager
 import com.fabulouszanna.fabpokedex.core.util.RecyclerViewGridLayoutSpace
 import com.fabulouszanna.fabpokedex.core.util.retrieveColorResourceFromType
 import com.fabulouszanna.fabpokedex.databinding.FragmentPokemonDetailsAboutBinding
-import com.fabulouszanna.fabpokedex.databinding.SingleBaseStatBinding
+import com.fabulouszanna.fabpokedex.databinding.ItemBaseStatBinding
 import com.fabulouszanna.fabpokedex.features.pokemon.data.mapper.WeaknessResistanceImmunityCalculator
 import com.fabulouszanna.fabpokedex.features.pokemon.data.model.Pokemon
 import com.fabulouszanna.fabpokedex.features.pokemon.presentation.pokemon_details.ability_bottom_sheet.AbilityBottomSheetDialogFragment
@@ -74,7 +74,7 @@ class PokemonDetailsAboutFragment(private val pokemon: Pokemon) : Fragment() {
     }
 
     private fun populateStat(
-        layout: SingleBaseStatBinding,
+        layout: ItemBaseStatBinding,
         statName: String,
         statValue: Int,
         maxStatValue: Int,

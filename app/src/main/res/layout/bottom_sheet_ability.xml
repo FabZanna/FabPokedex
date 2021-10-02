@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/abilityName"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="90dp"
         android:background="@drawable/pokemon_details_info_background"
         android:gravity="center"
         android:textColor="@color/white"

@@ -100,15 +100,20 @@ class PokemonDetailsFragment : Fragment() {
     }
 
     private fun setupViewPager(pokemon: Pokemon) {
-        binding.viewPager.adapter = PokemonDetailsViewPagerAdapter(this, pokemon)
+        binding.viewPager.adapter = PokemonDetailsViewPagerAdapter(this, pokemon, onPokemonClicked = ::onEvolutionPokemonClicked)
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when (position) {
                 0 -> "About"
                 1 -> "Evolutions"
+                2 -> "Moves"
                 else -> "Fragment"
             }
         }.attach()
+    }
+
+    private fun onEvolutionPokemonClicked(id: String) {
+        viewModel.updateId(id)
     }
 
     private fun setTabsColor(color: Int) {

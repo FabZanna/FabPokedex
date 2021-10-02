@@ -1,6 +1,7 @@
 package com.fabulouszanna.fabpokedex.features.pokemon.presentation.pokemon_list
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,12 +9,19 @@ import android.view.WindowManager
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.RequestManager
 import com.fabulouszanna.fabpokedex.core.util.RecyclerViewGridLayoutSpace
+import com.fabulouszanna.fabpokedex.core.util.hide
+import com.fabulouszanna.fabpokedex.core.util.makeInvisible
+import com.fabulouszanna.fabpokedex.core.util.show
 import com.fabulouszanna.fabpokedex.databinding.FragmentPokemonListBinding
+import com.fabulouszanna.fabpokedex.features.pokemon.presentation.pokemon_list.filter_bottom_sheet.TypeFilterBottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -21,8 +29,9 @@ class PokemonListFragment : Fragment() {
     private lateinit var binding: FragmentPokemonListBinding
     private val viewModel: PokemonViewModel by viewModels()
     private var statusBarDefaultColor: Int? = null
-    private var isSearchCleared = false
     private lateinit var pokemonListAdapter: PokemonListAdapter
+    private var isSearchCleared = false
+    private var isNavigating = false
 
     @Inject
     lateinit var glide: RequestManager
@@ -36,14 +45,21 @@ class PokemonListFragment : Fragment() {
         return binding.root
     }
 
+    private fun initializeSearch() {
+        isSearchCleared = false
+        isNavigating = false
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initializeSearch()
         pokemonListAdapter = PokemonListAdapter(glide)
         changeStatusBarColor()
         subscribeToObservers()
         setupRecyclerView()
         setupSearchView()
+        setupFiltering()
         setupNavigation()
     }
 
@@ -59,19 +75,27 @@ class PokemonListFragment : Fragment() {
     }
 
     private fun subscribeToObservers() {
-        viewModel.pokemonList.observe(viewLifecycleOwner) {
-            pokemonListAdapter.pokemonListItems = it
-//            if (isSearchCleared) {
-//                lifecycleScope.launch {
-//                    delay(10)
-//                    binding.pokemonList.layoutManager?.scrollToPosition(0)
-//                }
-//            }
+        viewModel.pokemonListState.observe(viewLifecycleOwner) { state ->
+            if (state.isListEmpty) {
+                binding.emptyList.show()
+                binding.pokemonList.hide()
+            } else {
+                binding.emptyList.hide()
+                binding.pokemonList.show()
+            }
+            pokemonListAdapter.pokemonListItems = state.pokemonList
+            if (!isNavigating && isSearchCleared) {
+                lifecycleScope.launch {
+                    delay(10)
+                    binding.pokemonList.layoutManager?.scrollToPosition(0)
+                }
+            }
         }
     }
 
     private fun setupNavigation() {
         pokemonListAdapter.setOnCardClicked { id ->
+            isNavigating = true
             val action =
                 PokemonListFragmentDirections.actionPokemonListFragmentToPokemonDetailsFragment(id)
             findNavController().navigate(action)
@@ -86,22 +110,32 @@ class PokemonListFragment : Fragment() {
         }
     }
 
+    private fun setupFiltering() {
+        binding.filter.setOnClickListener {
+            val typesBottomSheet = TypeFilterBottomSheetDialogFragment {
+                viewModel.onEvent(PokemonListEvent.FilterByType(it))
+            }
+            typesBottomSheet.show(requireActivity().supportFragmentManager, null)
+        }
+    }
+
     private fun setupSearchView() {
-        val pendingQuery = viewModel.filteredName.value
+        val pendingQuery = viewModel.pokemonListState.value?.filteredName
         binding.searchView.apply {
-            maxWidth = Int.MAX_VALUE
+//            maxWidth = Int.MAX_VALUE
 
             if (pendingQuery != null && pendingQuery.isNotEmpty()) {
-                binding.textView.visibility = View.INVISIBLE
+                binding.textView.makeInvisible()
                 setQuery(pendingQuery, false)
             }
 
             setOnSearchClickListener {
-                binding.textView.visibility = View.INVISIBLE
+                binding.textView.makeInvisible()
             }
             setOnCloseListener {
-                binding.textView.visibility = View.VISIBLE
-                isSearchCleared = false
+                binding.textView.show()
+//                viewModel.onEvent(PokemonListEvent.FilterByName(""))
+//                scrollToTop()
                 false
             }
 
@@ -115,7 +149,7 @@ class PokemonListFragment : Fragment() {
                     if (newText.isNullOrEmpty()) {
                         isSearchCleared = true
                     }
-                    viewModel.filteredName.postValue(newText ?: "")
+                    viewModel.onEvent(PokemonListEvent.FilterByName(newText ?: ""))
                     return true
                 }
             })
@@ -124,7 +158,8 @@ class PokemonListFragment : Fragment() {
                 if (query.isEmpty()) {
                     isIconified = true
                 } else {
-                    setQuery("", false)
+                    setQuery("", true)
+//                    viewModel.onEvent(PokemonListEvent.FilterByName(""))
                     isSearchCleared = true
                 }
             }

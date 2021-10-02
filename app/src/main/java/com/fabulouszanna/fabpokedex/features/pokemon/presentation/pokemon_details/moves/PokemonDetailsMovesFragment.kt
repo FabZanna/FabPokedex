@@ -1,4 +1,4 @@
-package com.fabulouszanna.fabpokedex.features.pokemon.presentation.pokemon_details.evolution
+package com.fabulouszanna.fabpokedex.features.pokemon.presentation.pokemon_details.moves
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,17 +8,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.RequestManager
-import com.fabulouszanna.fabpokedex.databinding.FragmentPokemonDetailsEvolutionsBinding
+import com.fabulouszanna.fabpokedex.databinding.FragmentPokemonDetailsMovesBinding
 import com.fabulouszanna.fabpokedex.features.pokemon.data.model.Pokemon
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PokemonDetailsEvolutionsFragment(
-    private val pokemon: Pokemon,
-    private val onPokemonClicked: (String) -> Unit
-) : Fragment() {
-    private lateinit var binding: FragmentPokemonDetailsEvolutionsBinding
+class PokemonDetailsMovesFragment(private val pokemon: Pokemon) : Fragment() {
+    private lateinit var binding: FragmentPokemonDetailsMovesBinding
 
     @Inject
     lateinit var glide: RequestManager
@@ -28,27 +25,24 @@ class PokemonDetailsEvolutionsFragment(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentPokemonDetailsEvolutionsBinding.inflate(inflater, container, false)
+        binding = FragmentPokemonDetailsMovesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView()
+        if (pokemon.moves != null) {
+            setupRecyclerView()
+        }
     }
 
     private fun setupRecyclerView() {
-        val evolutionsAdapter = PokemonEvolutionsAdapter(glide, onPokemonClicked)
-            .apply { evolutionItems = pokemon.evolutions }
-        binding.evolutions.apply {
+        binding.moves.apply {
             setHasFixedSize(true)
+            adapter = PokemonMovesAdapter(pokemon.moves!!, glide)
             layoutManager = LinearLayoutManager(requireContext())
-            adapter = evolutionsAdapter
             addItemDecoration(
-                DividerItemDecoration(
-                    requireContext(),
-                    DividerItemDecoration.VERTICAL
-                )
+                DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
             )
         }
     }

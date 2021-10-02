@@ -1,4 +1,4 @@
-package com.fabulouszanna.fabpokedex.features.pokemon.domain.usecases
+package com.fabulouszanna.fabpokedex.features.pokemon.domain.use_cases
 
 import com.fabulouszanna.fabpokedex.features.pokemon.domain.repository.PokemonRepository
 import javax.inject.Inject

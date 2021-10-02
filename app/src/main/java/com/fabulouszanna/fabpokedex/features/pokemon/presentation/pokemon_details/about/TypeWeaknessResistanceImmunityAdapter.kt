@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
 import com.fabulouszanna.fabpokedex.core.util.retrieveColorResourceFromType
 import com.fabulouszanna.fabpokedex.core.util.retrieveDrawableFromName
+import com.fabulouszanna.fabpokedex.databinding.ItemTypeWeaknessResistanceImmunityBinding
 import com.fabulouszanna.fabpokedex.features.pokemon.data.model.TypeWeaknessResistanceImmunity
-import com.fabulouszanna.fabpokedex.databinding.TypeWeaknessResistanceImmunityItemBinding
 
 class TypeWeaknessResistanceImmunityAdapter(private val glide: RequestManager) :
     RecyclerView.Adapter<TypeWeaknessResistanceImmunityAdapter.TypeWeaknessResistanceImmunityViewHolder>() {
@@ -37,7 +37,7 @@ class TypeWeaknessResistanceImmunityAdapter(private val glide: RequestManager) :
         parent: ViewGroup,
         viewType: Int
     ): TypeWeaknessResistanceImmunityViewHolder = TypeWeaknessResistanceImmunityViewHolder(
-        TypeWeaknessResistanceImmunityItemBinding.inflate(
+        ItemTypeWeaknessResistanceImmunityBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -51,7 +51,7 @@ class TypeWeaknessResistanceImmunityAdapter(private val glide: RequestManager) :
 
     override fun getItemCount(): Int = typeWeaknessResistanceImmunityItems.size
 
-    inner class TypeWeaknessResistanceImmunityViewHolder(private val binding: TypeWeaknessResistanceImmunityItemBinding) :
+    inner class TypeWeaknessResistanceImmunityViewHolder(private val binding: ItemTypeWeaknessResistanceImmunityBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         private fun formatValue(value: Float): String {

@@ -10,14 +10,19 @@
         <entry key="..\:/Projects/FabPokedex/app/src/main/res/drawable/type_weakness_background.xml" value="0.39479166666666665" />
         <entry key="..\:/Projects/FabPokedex/app/src/main/res/layout/activity_main.xml" value="0.2653985507246377" />
         <entry key="..\:/Projects/FabPokedex/app/src/main/res/layout/bottom_sheet_ability.xml" value="0.36666666666666664" />
+        <entry key="..\:/Projects/FabPokedex/app/src/main/res/layout/bottom_sheet_filter_by_type.xml" value="0.20520833333333333" />
         <entry key="..\:/Projects/FabPokedex/app/src/main/res/layout/evolution_card.xml" value="0.36666666666666664" />
         <entry key="..\:/Projects/FabPokedex/app/src/main/res/layout/fragment_pokemon_details.xml" value="0.26902173913043476" />
         <entry key="..\:/Projects/FabPokedex/app/src/main/res/layout/fragment_pokemon_details_about.xml" value="0.30570652173913043" />
         <entry key="..\:/Projects/FabPokedex/app/src/main/res/layout/fragment_pokemon_details_evolutions.xml" value="0.36666666666666664" />
+        <entry key="..\:/Projects/FabPokedex/app/src/main/res/layout/fragment_pokemon_details_moves.xml" value="0.36666666666666664" />
         <entry key="..\:/Projects/FabPokedex/app/src/main/res/layout/fragment_pokemon_list.xml" value="0.2653985507246377" />
+        <entry key="..\:/Projects/FabPokedex/app/src/main/res/layout/item_move.xml" value="0.36666666666666664" />
+        <entry key="..\:/Projects/FabPokedex/app/src/main/res/layout/move_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Projects/FabPokedex/app/src/main/res/layout/pokemon_card.xml" value="0.26358695652173914" />
         <entry key="..\:/Projects/FabPokedex/app/src/main/res/layout/pokemon_details_about.xml" value="0.36666666666666664" />
         <entry key="..\:/Projects/FabPokedex/app/src/main/res/layout/single_base_stat.xml" value="0.36666666666666664" />
+        <entry key="..\:/Projects/FabPokedex/app/src/main/res/layout/type_filter_item.xml" value="0.36666666666666664" />
         <entry key="..\:/Projects/FabPokedex/app/src/main/res/layout/type_weakness_resistance_immunity_item.xml" value="0.36666666666666664" />
       </map>
     </option>
